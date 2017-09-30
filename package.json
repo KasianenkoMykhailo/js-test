@@ -5,11 +5,11 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/KasianenkoMykhailo/js-test.git"
+    "url": "git+https://github.com/KasianenkoMykhailo/js-test.git"
   },
-  "keywords": ["test", "unit"],
-  "authors": [
-    "Mykhailo Kasianenko"
+  "keywords": [
+    "test",
+    "unit"
   ],
   "license": "MIT",
   "dependencies": {
@@ -23,5 +23,15 @@
         "*.js"
       ]
     }
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/KasianenkoMykhailo/js-test/issues"
+  },
+  "homepage": "https://github.com/KasianenkoMykhailo/js-test#readme",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {},
+  "author": "Mykhailo Kasianenko <michaelfromukraine@gmail.com>"
 }
