@@ -1,6 +1,6 @@
 {
-  "name": "js-test",
-  "version": "1.0.0",
+  "name": "js-unit-test",
+  "version": "0.0.1",
   "description": "Unit Testing helper",
   "scripts": {},
   "repository": {
@@ -15,7 +15,7 @@
   "dependencies": {
     "colors": "^1.1.2"
   },
-  "npmName": "js-test",
+  "npmName": "js-unit-test",
   "npmFileMap": [
     {
       "basePath": "/dist/",
