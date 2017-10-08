@@ -12,15 +12,6 @@ module['exports'] = class AbstractConstraint
 
     /**
      * @param other
-     * @returns {string}
-     */
-    failureDescription(other)
-    {
-        return this.exporter.export(other) + ' ' + this.toString();
-    }
-
-    /**
-     * @param other
      *
      * @returns {boolean}
      */
@@ -52,6 +43,15 @@ module['exports'] = class AbstractConstraint
         if (false === success) {
             this.fail(other, description);
         }
+    }
+
+    /**
+     * @param other
+     * @returns {string}
+     */
+    failureDescription(other)
+    {
+        return `<${this.exporter.export(other)}> ` + this.toString();
     }
 
     /**
