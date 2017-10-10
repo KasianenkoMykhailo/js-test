@@ -1,6 +1,6 @@
 'use strict';
 
-let AbstractTestCase = require('../src/TestCase/AbstractTestCase');
+const AbstractTestCase = require('../src/TestCase/AbstractTestCase');
 
 module['exports'] = class TypeOfTest extends AbstractTestCase
 {
@@ -34,5 +34,19 @@ module['exports'] = class TypeOfTest extends AbstractTestCase
         this.assertIsTypeOf('string', this.str);
         this.assertIsTypeOf('symbol', this.sym);
         this.assertIsTypeOf('function', this.func);
+    }
+
+    testIsDifferentTypes()
+    {
+        this.assertIsUndefined(this.undef);
+        this.assertIsObject(this.obj);
+        this.assertIsBoolean(this.true);
+        this.assertIsBoolean(this.false);
+        this.assertIsNumber(this.intNumber);
+        this.assertIsNumber(this.floatNumber);
+        this.assertIsNumber(this.nan);
+        this.assertIsString(this.str);
+        this.assertIsSymbol(this.sym);
+        this.assertIsFunction(this.func);
     }
 };

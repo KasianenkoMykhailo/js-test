@@ -1,6 +1,6 @@
 'use strict';
 
-let AbstractTestCase = require('../src/TestCase/AbstractTestCase');
+const AbstractTestCase = require('../src/TestCase/AbstractTestCase');
 
 module['exports'] = class ArrayTest extends AbstractTestCase
 {

@@ -1,15 +1,16 @@
 'use strict';
 
-let UnexpectedValueError = require('../Error/UnexpectedValueError');
-let ConstraintMismatchError = require('../Error/ConstraintMismatchError');
-let TestResult = require('../TestResult/TestResult');
-let AbstractConstraint = require('../Constraint/AbstractConstraint');
-let ArrayHasIndex = require('../Constraint/ArrayHasIndex');
-let ArrayHasNoIndex = require('../Constraint/ArrayHasNoIndex');
-let IsTypeOf = require('../Constraint/IsTypeOf');
+const UnexpectedValueError = require('../Error/UnexpectedValueError');
+const ConstraintMismatchError = require('../Error/ConstraintMismatchError');
+const TestResult = require('../TestResult/TestResult');
+const AbstractConstraint = require('../Constraint/AbstractConstraint');
+const ArrayHasIndex = require('../Constraint/ArrayHasIndex');
+const ArrayHasNoIndex = require('../Constraint/ArrayHasNoIndex');
+const IsTypeOf = require('../Constraint/IsTypeOf');
+const IsEqualTo = require('../Constraint/IsEqualTo');
 
 let assertionsCount = 0;
-let failMessages = [];
+let errors = [];
 
 module['exports'] = class Assert
 {
@@ -47,7 +48,7 @@ module['exports'] = class Assert
             constraint.evaluate(value, message);
         } catch (e) {
             if (e instanceof ConstraintMismatchError) {
-                failMessages.push(e.message);
+                errors.push(e);
             } else {
                 throw e;
             }
@@ -66,13 +67,14 @@ module['exports'] = class Assert
             throw new UnexpectedValueError('__runTest <testName> must be string');
         }
 
+        let testClass = this.constructor.name;
         this[testName]();
-        if (failMessages.length === 0) {
-            return new TestResult(testName);
+        if (errors.length === 0) {
+            return new TestResult(testClass, testName);
         }
 
-        let testResult = new TestResult(testName, failMessages);
-        failMessages = [];
+        let testResult = new TestResult(testClass, testName, errors);
+        errors = [];
 
         return testResult;
     }
@@ -111,5 +113,94 @@ module['exports'] = class Assert
         let constraint = new IsTypeOf(type);
 
         this.__assertThat(value, constraint, message)
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsUndefined(value, message = '')
+    {
+        let constraint = new IsTypeOf('undefined');
+
+        this.__assertThat(value, constraint, message)
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsObject(value, message = '')
+    {
+        let constraint = new IsTypeOf('object');
+
+        this.__assertThat(value, constraint, message)
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsBoolean(value, message = '')
+    {
+        let constraint = new IsTypeOf('boolean');
+
+        this.__assertThat(value, constraint, message)
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsNumber(value, message = '')
+    {
+        let constraint = new IsTypeOf('number');
+
+        this.__assertThat(value, constraint, message)
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsString(value, message = '')
+    {
+        let constraint = new IsTypeOf('string');
+
+        this.__assertThat(value, constraint, message)
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsSymbol(value, message = '')
+    {
+        let constraint = new IsTypeOf('symbol');
+
+        this.__assertThat(value, constraint, message)
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsFunction(value, message = '')
+    {
+        let constraint = new IsTypeOf('function');
+
+        this.__assertThat(value, constraint, message)
+    }
+
+    /**
+     * @param expected
+     * @param actual
+     * @param {String} message
+     */
+    assertEquals(expected, actual, message = '')
+    {
+        let constraint = new IsEqualTo(expected);
+
+        this.__assertThat(actual, constraint, message)
     }
 };

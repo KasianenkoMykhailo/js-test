@@ -1,7 +1,7 @@
 'use strict';
 
-let Exporter = require('../Exporter/Exporter');
-let ConstraintMismatchError = require('../Error/ConstraintMismatchError');
+const Exporter = require('../Exporter/Exporter');
+const ConstraintMismatchError = require('../Error/ConstraintMismatchError');
 
 module['exports'] = class AbstractConstraint
 {

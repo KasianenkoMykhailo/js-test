@@ -1,9 +1,8 @@
 'use strict';
 
-let Assert = require('../Assert/Assert');
-let TestFail = require('../TestResult/TestResult');
-let Report = require('../Report/Report');
-let ReportManager = require('../Report/ReportManager');
+const Assert = require('../Assert/Assert');
+const Report = require('../Report/Report');
+const ReportManager = require('../Report/ReportManager');
 
 module['exports'] = class AbstractTestCase extends Assert
 {

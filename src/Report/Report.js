@@ -1,6 +1,6 @@
 'use strict';
 
-let UnexpectedValueError = require('../Error/UnexpectedValueError');
+const UnexpectedValueError = require('../Error/UnexpectedValueError');
 
 module['exports'] = class Report
 {

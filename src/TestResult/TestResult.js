@@ -1,27 +1,39 @@
 'use strict';
 
-let UnexpectedValueError = require('../Error/UnexpectedValueError');
+const UnexpectedValueError = require('../Error/UnexpectedValueError');
+const ConstraintMismatchError = require('../Error/ConstraintMismatchError');
 
 module['exports'] = class TestResult
 {
     /**
+     * @param {String} testClass
      * @param {String} testName
-     * @param {Array} failMessages
+     * @param {Array|ConstraintMismatchError[]} errors
      */
-    constructor(testName, failMessages = [])
+    constructor(testClass, testName, errors = [])
     {
+        if (false === ('string' === typeof testClass)) {
+            throw new UnexpectedValueError('testClass expected to be string');
+        }
+
         if (false === ('string' === typeof testName)) {
             throw new UnexpectedValueError('testName expected to be string');
         }
 
-        if (false === ('object' === typeof failMessages)
-            || false === failMessages instanceof Array
+        if (false === ('object' === typeof errors)
+            || false === errors instanceof Array
         ) {
-            throw new UnexpectedValueError('failMessages expected to be Array');
+            throw new UnexpectedValueError('errors expected to be Array');
         }
 
+        this.__testClass = testClass;
         this.__testName = testName;
-        this.__failMessages = failMessages;
+        this.__errors = errors;
+    }
+
+    get testClass()
+    {
+        return this.__testClass;
     }
 
     get testName()
@@ -29,9 +41,9 @@ module['exports'] = class TestResult
         return this.__testName;
     }
 
-    get failMessages()
+    get errors()
     {
-        return this.__failMessages;
+        return this.__errors;
     }
 
     /**
@@ -39,6 +51,6 @@ module['exports'] = class TestResult
      */
     isSuccessful()
     {
-        return 0 === this.__failMessages.length;
+        return 0 === this.__errors.length;
     }
 };

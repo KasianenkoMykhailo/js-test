@@ -1,10 +1,10 @@
 'use strict';
 
-let Report = require('./Report');
-let CompositeReport = require('./CompositeReport');
-let UnexpectedValueError = require('../Error/UnexpectedValueError');
-let TestResult = require('../TestResult/TestResult');
-let colors = require('colors/safe');
+const Report = require('./Report');
+const CompositeReport = require('./CompositeReport');
+const UnexpectedValueError = require('../Error/UnexpectedValueError');
+const TestResult = require('../TestResult/TestResult');
+const colors = require('colors/safe');
 
 module['exports'] = class ReportManager
 {
@@ -37,11 +37,23 @@ module['exports'] = class ReportManager
     {
         let errorsLog = '';
         let errorNum = 1;
-        for (let testFail of testResults) {
-            let failedTestName = testFail.testName;
-            for (let failMessage of testFail.failMessages) {
-                errorsLog += `${errorNum}) ${failedTestName}: \n`;
-                errorsLog += `${failMessage} \n`;
+        for (let testResult of testResults) {
+            let testClass = testResult.testClass;
+            let testName = testResult.testName;
+            for (let error of testResult.errors) {
+                let errorsStackArray = error.stack.split(`\n`);
+                let fileNameAndFile = '';
+                if (errorsStackArray.length >= 7) {
+                    let firstStackCall = errorsStackArray[6];
+                    let fileNameAndFileMatches = firstStackCall.match(/\(([-\.\:\/\w]+)\)/i);
+                    if (null !== fileNameAndFileMatches) {
+                        fileNameAndFile = fileNameAndFileMatches.length > 1? fileNameAndFileMatches[1]: fileNameAndFileMatches[0];
+                    }
+
+                }
+                errorsLog += `${errorNum}) ${testClass}::${testName}: \n`;
+                errorsLog += `${error.message} \n\n`;
+                errorsLog += `${fileNameAndFile} \n`;
                 errorNum++;
             }
         }
@@ -74,7 +86,7 @@ module['exports'] = class ReportManager
             return;
         }
 
-        let failuresCount = testResults.reduce((acc, testResult) => acc + testResult.failMessages.length, 0);
+        let failuresCount = testResults.reduce((acc, testResult) => acc + testResult.errors.length, 0);
         let errorsLog = `There were ${failuresCount} failures: \n`;
         errorsLog += `${ReportManager.__createErrorsLog(...testResults)} \n`;
         console.log(errorsLog);

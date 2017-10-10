@@ -1,7 +1,7 @@
 'use strict';
 
-let AbstractConstraint = require('./AbstractConstraint');
-let UnexpectedValueError = require('../Error/UnexpectedValueError');
+const AbstractConstraint = require('./AbstractConstraint');
+const UnexpectedValueError = require('../Error/UnexpectedValueError');
 
 module['exports'] = class ArrayHasNoIndex extends AbstractConstraint
 {
