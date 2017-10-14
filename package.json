@@ -1,6 +1,6 @@
 {
   "name": "js-unit-test",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "unit test framework",
   "license": "MIT",
   "repository": {
@@ -15,6 +15,8 @@
     "run-tests": "./bin/run-tests"
   },
   "files": [
+    "src",
+    "bin",
     "index.js"
   ],
   "keywords": [
