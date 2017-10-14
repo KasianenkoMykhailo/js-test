@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const program = require('commander');
+const path = require('path');
+const fs = require('fs');
+const TestRunner = require('../src/TestRunner/TestRunner');
+
+program
+    .version(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8')).version)
+    .option('-d, --testsDirRelPath <string>', 'relative path to project tests directory', 'tests')
+    .parse(process.argv);
+
+(new TestRunner(path.join(process.cwd(), program.testsDirRelPath))).run();

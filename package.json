@@ -1,37 +1,37 @@
 {
   "name": "js-unit-test",
-  "version": "0.0.3",
-  "description": "Unit Testing helper",
-  "scripts": {},
+  "version": "0.0.4",
+  "description": "unit test framework",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KasianenkoMykhailo/js-test.git"
   },
+  "author": "Mykhailo Kasianenko <michaelfromukraine@gmail.com>",
+  "scripts": {
+    "test": "./bin/run-tests"
+  },
+  "bin": {
+    "run-tests": "./bin/run-tests"
+  },
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "test",
-    "unit"
+    "tests",
+    "unit",
+    "unit-test",
+    "unit-tests",
+    "unit-testing"
   ],
-  "license": "MIT",
   "dependencies": {
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "commander": "2.11.0"
   },
   "npmName": "js-unit-test",
-  "npmFileMap": [
-    {
-      "basePath": "/dist/",
-      "files": [
-        "*.js"
-      ]
-    }
-  ],
   "bugs": {
     "url": "https://github.com/KasianenkoMykhailo/js-test/issues"
   },
-  "homepage": "https://github.com/KasianenkoMykhailo/js-test#readme",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
-  "devDependencies": {},
-  "author": "Mykhailo Kasianenko <michaelfromukraine@gmail.com>"
+  "homepage": "https://github.com/KasianenkoMykhailo/js-test#readme"
 }

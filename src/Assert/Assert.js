@@ -8,6 +8,7 @@ const ArrayHasIndex = require('../Constraint/ArrayHasIndex');
 const ArrayHasNoIndex = require('../Constraint/ArrayHasNoIndex');
 const IsTypeOf = require('../Constraint/IsTypeOf');
 const IsEqualTo = require('../Constraint/IsEqualTo');
+const IsNotEqualTo = require('../Constraint/IsNotEqualTo');
 
 let assertionsCount = 0;
 let errors = [];
@@ -200,6 +201,18 @@ module['exports'] = class Assert
     assertEquals(expected, actual, message = '')
     {
         let constraint = new IsEqualTo(expected);
+
+        this.__assertThat(actual, constraint, message)
+    }
+
+    /**
+     * @param expected
+     * @param actual
+     * @param {String} message
+     */
+    assertNotEquals(expected, actual, message = '')
+    {
+        let constraint = new IsNotEqualTo(expected);
 
         this.__assertThat(actual, constraint, message)
     }
