@@ -9,6 +9,9 @@ const ArrayHasNoIndex = require('../Constraint/ArrayHasNoIndex');
 const IsTypeOf = require('../Constraint/IsTypeOf');
 const IsEqualTo = require('../Constraint/IsEqualTo');
 const IsNotEqualTo = require('../Constraint/IsNotEqualTo');
+const IsEmpty = require('../Constraint/IsEmpty');
+const IsNotEmpty = require('../Constraint/IsNotEmpty');
+const Count = require('../Constraint/Count');
 
 let assertionsCount = 0;
 let errors = [];
@@ -89,7 +92,7 @@ module['exports'] = class Assert
     {
         let constraint = new ArrayHasIndex(index);
 
-        this.__assertThat(array, constraint, message)
+        this.__assertThat(array, constraint, message);
     }
 
     /**
@@ -101,7 +104,7 @@ module['exports'] = class Assert
     {
         let constraint = new ArrayHasNoIndex(index);
 
-        this.__assertThat(array, constraint, message)
+        this.__assertThat(array, constraint, message);
     }
 
     /**
@@ -113,7 +116,7 @@ module['exports'] = class Assert
     {
         let constraint = new IsTypeOf(type);
 
-        this.__assertThat(value, constraint, message)
+        this.__assertThat(value, constraint, message);
     }
 
     /**
@@ -124,7 +127,7 @@ module['exports'] = class Assert
     {
         let constraint = new IsTypeOf('undefined');
 
-        this.__assertThat(value, constraint, message)
+        this.__assertThat(value, constraint, message);
     }
 
     /**
@@ -135,7 +138,7 @@ module['exports'] = class Assert
     {
         let constraint = new IsTypeOf('object');
 
-        this.__assertThat(value, constraint, message)
+        this.__assertThat(value, constraint, message);
     }
 
     /**
@@ -146,7 +149,7 @@ module['exports'] = class Assert
     {
         let constraint = new IsTypeOf('boolean');
 
-        this.__assertThat(value, constraint, message)
+        this.__assertThat(value, constraint, message);
     }
 
     /**
@@ -157,7 +160,7 @@ module['exports'] = class Assert
     {
         let constraint = new IsTypeOf('number');
 
-        this.__assertThat(value, constraint, message)
+        this.__assertThat(value, constraint, message);
     }
 
     /**
@@ -168,7 +171,7 @@ module['exports'] = class Assert
     {
         let constraint = new IsTypeOf('string');
 
-        this.__assertThat(value, constraint, message)
+        this.__assertThat(value, constraint, message);
     }
 
     /**
@@ -179,7 +182,7 @@ module['exports'] = class Assert
     {
         let constraint = new IsTypeOf('symbol');
 
-        this.__assertThat(value, constraint, message)
+        this.__assertThat(value, constraint, message);
     }
 
     /**
@@ -190,7 +193,7 @@ module['exports'] = class Assert
     {
         let constraint = new IsTypeOf('function');
 
-        this.__assertThat(value, constraint, message)
+        this.__assertThat(value, constraint, message);
     }
 
     /**
@@ -202,7 +205,7 @@ module['exports'] = class Assert
     {
         let constraint = new IsEqualTo(expected);
 
-        this.__assertThat(actual, constraint, message)
+        this.__assertThat(actual, constraint, message);
     }
 
     /**
@@ -214,6 +217,84 @@ module['exports'] = class Assert
     {
         let constraint = new IsNotEqualTo(expected);
 
-        this.__assertThat(actual, constraint, message)
+        this.__assertThat(actual, constraint, message);
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsTrue(value, message = '')
+    {
+        let constraint = new IsEqualTo(true);
+
+        this.__assertThat(value, constraint, message);
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsNotTrue(value, message = '')
+    {
+        let constraint = new IsNotEqualTo(true);
+
+        this.__assertThat(value, constraint, message);
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsFalse(value, message = '')
+    {
+        let constraint = new IsEqualTo(false);
+
+        this.__assertThat(value, constraint, message);
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsNotFalse(value, message = '')
+    {
+        let constraint = new IsNotEqualTo(false);
+
+        this.__assertThat(value, constraint, message);
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsEmpty(value, message = '')
+    {
+        let constraint = new IsEmpty();
+
+        this.__assertThat(value, constraint, message);
+    }
+
+    /**
+     * @param value
+     * @param {String} message
+     */
+    assertIsNotEmpty(value, message = '')
+    {
+        let constraint = new IsNotEmpty();
+
+        this.__assertThat(value, constraint, message);
+    }
+
+    /**
+     * @param {Number} expected
+     * @param {Countable} countable
+     * @param {String} message
+     */
+    assertCount(expected, countable, message = '')
+    {
+        let constraint = new Count(expected);
+
+        this.__assertThat(countable, constraint, message);
     }
 };

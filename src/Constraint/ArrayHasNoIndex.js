@@ -2,6 +2,7 @@
 
 const AbstractConstraint = require('./AbstractConstraint');
 const UnexpectedValueError = require('../Error/UnexpectedValueError');
+const TypeHelper = require('../Helper/TypeHelper');
 
 module['exports'] = class ArrayHasNoIndex extends AbstractConstraint
 {
@@ -11,14 +12,11 @@ module['exports'] = class ArrayHasNoIndex extends AbstractConstraint
     constructor(index)
     {
         super();
-        let indexType = typeof index;
-        if ('number' !== indexType || false === Number.isInteger(index) || 0 > index) {
-            throw new UnexpectedValueError(
-                `ArrayHasIndex <index> expected to be {Integer}, got ${indexType}`
-            );
+        if (false === TypeHelper.isInteger(index) || 0 > index) {
+            throw new UnexpectedValueError('ArrayHasNoIndex <index> is not valid');
         }
 
-        this.index = Number.parseInt(index);
+        this.index = index;
     }
 
     /**
@@ -28,11 +26,7 @@ module['exports'] = class ArrayHasNoIndex extends AbstractConstraint
      */
     matches(other)
     {
-        if (false === ('object' === typeof other)) {
-            return false;
-        }
-
-        if (false === other instanceof Array) {
+        if (false === TypeHelper.isArray(other)) {
             return false;
         }
 

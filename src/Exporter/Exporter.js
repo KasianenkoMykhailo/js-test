@@ -1,5 +1,7 @@
 'use strict';
 
+const TypeHelper = require('../Helper/TypeHelper');
+
 module['exports'] = class Exporter
 {
     /**
@@ -13,7 +15,7 @@ module['exports'] = class Exporter
             case 'undefined':
                 return 'undefined';
             case 'object':
-                if (null === value) {
+                if (TypeHelper.isNull(value)) {
                     return 'null';
                 }
 
@@ -21,17 +23,37 @@ module['exports'] = class Exporter
                     return value.toString();
                 }
 
-                if (value instanceof Array) {
-                    let arrayExported = '';
+                if (TypeHelper.isArray(value)) {
+                    let arrayExported = 'Array[ \n';
                     for (let key of value.keys()) {
                         let val = this.__recursiveExport(value[key]);
-                        arrayExported += `${key} => ${val} \n`;
+                        arrayExported += `\t ${key} => ${val} \n`;
                     }
 
-                    return arrayExported;
+                    return arrayExported + ']';
                 }
 
-                return 'object';
+                if (TypeHelper.isMap(value)) {
+                    let mapExported = 'Map[ \n';
+                    for (let [key, v] of value.keys()) {
+                        let val = this.__recursiveExport(v);
+                        mapExported += `\t ${key} => ${val} \n`;
+                    }
+
+                    return mapExported + ']';
+                }
+
+                if (TypeHelper.isSet(value)) {
+                    let setExported = 'Set[ \n';
+                    for (let item of value) {
+                        let val = this.__recursiveExport(item);
+                        setExported += `\t ${val}, \n`;
+                    }
+
+                    return setExported + ']';
+                }
+
+                return `{${value.constructor.name}}`;
             case 'boolean':
                 return Boolean(value).toString();
             case 'number':
@@ -43,7 +65,7 @@ module['exports'] = class Exporter
             case 'function':
                 return 'function';
             default:
-            break;
+                break;
         }
 
         return 'Unknown monkey';

@@ -2,6 +2,7 @@
 
 const AbstractConstraint = require('./AbstractConstraint');
 const UnexpectedValueError = require('../Error/UnexpectedValueError');
+const TypeHelper = require('../Helper/TypeHelper');
 
 module['exports'] = class IsTypeOf extends AbstractConstraint
 {
@@ -11,32 +12,11 @@ module['exports'] = class IsTypeOf extends AbstractConstraint
     constructor(type)
     {
         super();
-        if (false === this.__isValidType(type)) {
+        if (false === TypeHelper.isValidType(type)) {
             throw new UnexpectedValueError('TypeOfConstraint <type> expected to be valid javascript type');
         }
 
         this.type = type;
-    }
-
-    /**
-     * @param {String} type
-     * @returns {boolean}
-     * @private
-     */
-    __isValidType(type)
-    {
-        let validTypes = [
-            'undefined',
-            'object',
-            'boolean',
-            'number',
-            'string',
-            'symbol',
-            'function'
-        ];
-
-
-        return 'string' === typeof type || true === validTypes.includes(type);
     }
 
     /**
